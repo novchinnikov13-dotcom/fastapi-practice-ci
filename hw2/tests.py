@@ -1,5 +1,5 @@
 from datetime import datetime
-from module_29_testing.hw.hw1.models import CParking, Parking
+from hw1.models import CParking, Parking
 import pytest
 
 @pytest.mark.parametrize(
