@@ -1,4 +1,4 @@
-from module_29_testing.hw.hw1.init import create_app
+from hw1.init import create_app
 
 app = create_app()
 
