@@ -2,11 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - "*"
+    branches: [ "*" ]
   pull_request:
-    branches:
-      - "*"
+    branches: [ "*" ]
 
 jobs:
   lint-and-test:
@@ -15,8 +13,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,24 +25,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Format code (Black + Isort)
-        run: |
-          black .
-          isort .
-
-      - name: Commit and push if changed
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "fix: auto-format code with black & isort"
-          file_pattern: "*.py"
-         
       - name: Run mypy
         run: mypy .
 
-      - name: Run black (verification)
+      - name: Run black
         run: black --diff --check .
 
-      - name: Run isort (verification)
+      - name: Run isort
         run: isort --check-only .
 
       - name: Run flake8
