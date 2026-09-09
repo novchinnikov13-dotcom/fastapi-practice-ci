@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict, Any
 from hw1.init import db
-class Client(db.Model):
+class Client(db.Model): # type: ignore[name-defined]
     __tablename__ = 'client'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -21,7 +21,7 @@ class Client(db.Model):
                 self.__table__.columns}
 
 
-class Parking(db.Model):
+class Parking(db.Model): # type: ignore[name-defined]
     __tablename__ = 'parking'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -39,7 +39,7 @@ class Parking(db.Model):
         return {c.name: getattr(self, c.name) for c in
                 self.__table__.columns}
 
-class CParking(db.Model):
+class CParking(db.Model): # type: ignore[name-defined]
     __tablename__ = 'client_park'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
