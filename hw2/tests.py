@@ -1,7 +1,4 @@
-from datetime import datetime
-from hw1.models import CParking, Parking
 import pytest
-
 
 @pytest.mark.parametrize("path", ["/clients", "/clients/1"])
 def test_all_get_endpoints_return_200(client, path):
@@ -10,7 +7,7 @@ def test_all_get_endpoints_return_200(client, path):
 
 
 def test_create_client(client, db, app):
-    from module_29_testing.hw.hw_1.models import Client
+    from hw1.models import Client
 
     with app.app_context():
         clients_prev = Client.query.count()
@@ -25,7 +22,7 @@ def test_create_client(client, db, app):
         },
     )
     assert resp.status_code == 201
-    from module_29_testing.hw.hw_1.models import Client
+    from hw_1.models import Client
 
     with app.app_context():
         with_new_client = Client.query.count()
@@ -33,7 +30,7 @@ def test_create_client(client, db, app):
 
 
 def test_create_parking(client, db, app):
-    from module_29_testing.hw.hw_1.models import Parking
+    from hw1.models import Parking
 
     with app.app_context():
         parking_prev = Parking.query.count()
@@ -48,7 +45,7 @@ def test_create_parking(client, db, app):
     )
 
     assert resp.status_code == 201
-    from module_29_testing.hw.hw_1.models import Parking
+    from hw1.models import Parking
 
     with app.app_context():
         with_new_park = Parking.query.count()
@@ -56,7 +53,7 @@ def test_create_parking(client, db, app):
 
 
 def test_in_parking(client, db, app):
-    from module_29_testing.hw.hw_1.models import Client, CParking, Parking
+    from hw1.models import Client, CParking, Parking
 
     with app.app_context():
 
@@ -66,7 +63,7 @@ def test_in_parking(client, db, app):
         in_parking = CParking.query.count()
     resp = client.post("/client_parkings", json={"client_id": 1, "parking_id": 1})
     assert resp.status_code == 201
-    from module_29_testing.hw.hw_1.models import Client, CParking, Parking
+    from hw1.models import Client, CParking, Parking
 
     with app.app_context():
         parking_obj = Parking.query.get(1)
@@ -76,7 +73,7 @@ def test_in_parking(client, db, app):
 
 
 def test_out_parking(client, db, app):
-    from module_29_testing.hw.hw_1.models import Client, CParking, Parking
+    from hw1.models import Client, CParking, Parking
 
     with app.app_context():
         client_obj = Client.query.get(1)
@@ -85,7 +82,7 @@ def test_out_parking(client, db, app):
         in_parking = CParking.query.count()
     resp = client.delete("/client_parkings", json={"client_id": 1, "parking_id": 1})
     assert resp.status_code == 200
-    from module_29_testing.hw.hw_1.models import Client, CParking, Parking
+    from hw1.models import Client, CParking, Parking
 
     with app.app_context():
         parking_obj = Parking.query.get(1)
