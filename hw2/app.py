@@ -2,8 +2,8 @@ from datetime import datetime
 
 from flask import request, jsonify
 from sqlalchemy import select
-from module_29_testing.hw.hw1.init import db
-from module_29_testing.hw.hw1.models import Client, Parking, CParking
+from hw1.init import db
+from hw1.models import Client, Parking, CParking
 
 
 def init_routes(app):
