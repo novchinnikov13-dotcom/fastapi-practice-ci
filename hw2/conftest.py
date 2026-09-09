@@ -2,7 +2,7 @@ import pytest
 from flask import Flask
 from hw1.init import db
 # Импортируем функцию, которая вешает роуты
-from hw1.app import init_routes  
+from hw2.app import init_routes  
 
 @pytest.fixture
 def app():
