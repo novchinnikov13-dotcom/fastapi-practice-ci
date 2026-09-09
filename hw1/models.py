@@ -1,8 +1,9 @@
 from datetime import datetime
 from typing import Dict, Any
 from hw1.init import db
-class Client(db.Model): # type: ignore[name-defined]
-    __tablename__ = 'client'
+
+class Client(db.Model):
+    __tablename__ = "client"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
@@ -10,19 +11,19 @@ class Client(db.Model): # type: ignore[name-defined]
     credit_card = db.Column(db.String(50), nullable=True)
     car_number = db.Column(db.String(10), nullable=True)
 
-    parkings = db.relationship('CParking', back_populates = 'client', cascade="all, delete-orphan")
-
+    parkings = db.relationship(
+        "CParking", back_populates="client", cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"Клиент {self.name} {self.car_number}"
 
     def to_json(self) -> Dict[str, Any]:
-        return {c.name: getattr(self, c.name) for c in
-                self.__table__.columns}
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
-class Parking(db.Model): # type: ignore[name-defined]
-    __tablename__ = 'parking'
+class Parking(db.Model):
+    __tablename__ = "parking"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     address = db.Column(db.String(100), nullable=False)
@@ -30,17 +31,19 @@ class Parking(db.Model): # type: ignore[name-defined]
     count_places = db.Column(db.Integer, nullable=False)
     count_available_places = db.Column(db.Integer, nullable=False)
 
-    clients = db.relationship('CParking', back_populates = 'parking', cascade="all, delete-orphan")
+    clients = db.relationship(
+        "CParking", back_populates="parking", cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"Парковка {self.id} {self.address}"
 
     def to_json(self) -> Dict[str, Any]:
-        return {c.name: getattr(self, c.name) for c in
-                self.__table__.columns}
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-class CParking(db.Model): # type: ignore[name-defined]
-    __tablename__ = 'client_park'
+
+class CParking(db.Model):
+    __tablename__ = "client_park"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
@@ -57,8 +60,8 @@ class CParking(db.Model): # type: ignore[name-defined]
     time_in = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     time_out = db.Column(db.DateTime, nullable=True)
 
-    client =  db.relationship('Client', back_populates = 'parkings')
-    parking = db.relationship('Parking', back_populates = 'clients')
+    client = db.relationship("Client", back_populates="parkings")
+    parking = db.relationship("Parking", back_populates="clients")
 
     def __repr__(self) -> str:
         return (
