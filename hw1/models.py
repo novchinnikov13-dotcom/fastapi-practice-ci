@@ -1,7 +1,6 @@
 from datetime import datetime
 from typing import Dict, Any
-from module_29_testing.hw.hw1.init import db
-
+from hw1.init import db
 class Client(db.Model):
     __tablename__ = 'client'
 
