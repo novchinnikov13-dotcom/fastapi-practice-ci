@@ -10,8 +10,8 @@ def create_app():
 
     db.init_app(app)
 
-    from module_29_testing.hw.hw2.app import init_routes  # импортируем функцию
-    from module_29_testing.hw.hw_1.models import Client, CParking, Parking
+    from hw2.app import init_routes  # импортируем функцию
+    from hw1.models import Client, CParking, Parking
 
     with app.app_context():
         db.create_all()
