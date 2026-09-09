@@ -1,10 +1,9 @@
 import pytest
 from hw1.models import Client, Parking, CParking
-# Импорт db нужен, чтобы добавлять данные в сессию вручную
-from hw1.init import db 
+from hw1.init import db
 
 @pytest.mark.parametrize("path", ["/clients", "/clients/1"])
-def test_all_get_endpoints_return_200(client, app):
+def test_all_get_endpoints_return_200(client, app, path):  # <--- ВОТ ЗДЕСЬ ДОБАВЛЕН 'path'
     # Для эндпоинта /clients/1 база должна быть не пустой, иначе вернет 404
     if path == "/clients/1":
         with app.app_context():
