@@ -59,12 +59,14 @@ def test_in_parking(client, db, app):
 
         parking_obj = Parking.query.get(1)
         free_parking = parking_obj.count_available_places
+        in_parking = CParking.query.count()
     resp = client.post("/client_parkings", json={"client_id": 1, "parking_id": 1})
     assert resp.status_code == 201
     from hw1.models import Client, CParking, Parking
 
     with app.app_context():
         parking_obj = Parking.query.get(1)
+        new_in_parking = CParking.query.count()        
         assert parking_obj.count_available_places == free_parking - 1
         assert new_in_parking == in_parking + 1
 
@@ -81,7 +83,6 @@ def test_out_parking(client, db, app):
 
     with app.app_context():
         parking_obj = Parking.query.get(1)
-
         parking_data = CParking.query.get(1)
         assert parking_obj.count_available_places == free_parking + 1
         assert parking_data.time_out is not None
